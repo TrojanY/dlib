@@ -40,11 +40,17 @@ list(APPEND CMAKE_PREFIX_PATH "${PYTHON_PATH}")
 # of other dll files and can be safely copied to someone elese's computer
 # and expected to run.
 if (MSVC)
-    include(${CMAKE_CURRENT_LIST_DIR}/tell_visual_studio_to_use_static_runtime.cmake)
+    if(NOT DEFINED ENV{CONDA_PREFIX})
+      include(${CMAKE_CURRENT_LIST_DIR}/tell_visual_studio_to_use_static_runtime.cmake)
+    endif()
     add_definitions(-DBOOST_PYTHON_STATIC_LIB)
     SET(Boost_USE_STATIC_LIBS ON)
     SET(Boost_USE_MULTITHREADED ON)
     SET(Boost_USE_STATIC_RUNTIME ON)
+    
+    if(DEFINED ENV{CONDA_PREFIX})
+       SET(Boost_USE_STATIC_RUNTIME OFF)
+    endif()
 endif()
 
 set(Boost_NO_BOOST_CMAKE ON)
@@ -55,6 +61,7 @@ if (NOT WIN32)
 else()
     link_directories($ENV{BOOST_LIBRARYDIR})
 endif()
+
 if (PYTHON3)
     # On some systems the boost python3 module is called python-py34 so check
     # for that one first.  
@@ -87,6 +94,7 @@ endif()
 
 # include dlib so we can link against it
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/.. dlib_build)
+
 if (USING_OLD_VISUAL_STUDIO_COMPILER)
    message(FATAL_ERROR "You have to use a version of Visual Studio that supports C++11.  As of November 2017, the only version that has good enough C++11 support to compile the dlib Pyhton API is Visual Studio 2015.  Visual Studio 2017 has WORSE C++11 support than Visual Studio 2015, so Visual Studio 2017 is unable to compile the Pyhton API.  ***USE VISUAL STUDIO 2015 INSTEAD***")
 endif()
