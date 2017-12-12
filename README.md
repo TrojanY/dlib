@@ -29,6 +29,10 @@ The examples folder has a [CMake tutorial](https://github.com/davisking/dlib/blo
 
 Before you can run the Python example programs you must compile dlib. Type:
 
+### For window
+This version is the modified version for window with anaconda. Add tools/python/cmake/findboost.cmake to fix origin version not find boost module in anaconda
+Install anacoda3 and conda install py-boost module, set BOOST_LIBRARYDIR to ../library/lib path of the anaconda envs 
+
 ```bash
 python setup.py install
 ```

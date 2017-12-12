@@ -1,6 +1,10 @@
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8.12)
-
+set(CMAKE_MODULE_PATH
+  ${CMAKE_CURRENT_SOURCE_DIR}/cmake
+  /usr/lib/x86_64-linux-gnu/
+  ${CMAKE_MODULE_PATH})
+SET(CMAKE_LIBRARY_PATH /usr/lib/x86_64-linux-gnu/ ${CMAKE_LIBRARY_PATH})
 
 set(USE_SSE4_INSTRUCTIONS ON CACHE BOOL "Use SSE4 instructions")
 # Make DLIB_ASSERT statements not abort the python interpreter, but just return an error.
