@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="utf8" ?>
    
 <!--
    To the extent possible under law, Davis E King  has waived all copyright and 
@@ -731,6 +731,11 @@
          </ul>
       </xsl:if>
    </xsl:template>   
+   <xsl:template match="ol">
+      <ol>
+         <xsl:apply-templates/>
+       </ol>
+   </xsl:template>   
    <xsl:template match="u">
       <u>
          <xsl:apply-templates/>
@@ -780,6 +785,13 @@
       <img src="{@src}" border="0" height="{@height}" width="{@width}" alt="{@alt}">
          <xsl:apply-templates/>
        </img>
+   </xsl:template>   
+   <xsl:template match="video">
+      <video controls="true" poster="{@src}.png">
+         <source src="{@src}.webm" type="video/webm"/>
+         <source src="{@src}.mp4" type="video/mp4"/>
+         <xsl:apply-templates/>
+      </video>
    </xsl:template>   
 
    <xsl:template name="term_list_go">
@@ -938,11 +950,12 @@
    <xsl:template match="log">
       <xsl:for-each select="logentry">
       <xsl:sort order="descending" data-type="number" select="./@revision"/>
-      <u>Revision</u>: <xsl:value-of select="substring(@node,1,16)"/> <br/>
+      <u>Revision</u>: <xsl:value-of select="substring(@revision,1,20)"/> <br/>
       <u>Author</u>: <a href="mailto:{author/@email}"><xsl:value-of select="author"/></a> <br/>
       <u>Date</u>: <xsl:call-template name="format-date"><xsl:with-param name="xsd-date" select="date"/></xsl:call-template> <br/>
             <xsl:apply-templates select="msg"/>
             <xsl:apply-templates select="paths"/>
+            <pre class="files_changed"><xsl:value-of select="files_changed"/></pre>
       <hr class="fullhr"/>
       </xsl:for-each>
    </xsl:template>

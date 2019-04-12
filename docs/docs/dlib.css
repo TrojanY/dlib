@@ -248,6 +248,11 @@ div.inc {
    float: right;
 }
 
+video
+{
+   border: black dotted 1px;
+   border-bottom: black solid 2px;
+}
 
 .code_box
 {
@@ -259,6 +264,14 @@ div.inc {
    border-left: black dotted 1px;
    border-right: black solid 2px;
    border-bottom: black solid 2px;
+}
+
+.files_changed
+{
+   color: black;
+   margin: 1em 0.15in;
+   padding: 0.5em;
+   background: rgb(246,246,255);
 }
 
 tt 
