@@ -271,10 +271,6 @@ def _log_buf(buf):
     if not buf:
         return
     if sys.stdout.encoding:
-       if sys.platform == "win32":
-          buf = buf.decode('gbk')
-       else:
-      	  buf = buf.decode(sys.stdout.encoding)
     buf = buf.rstrip()
     lines = buf.splitlines()
     for line in lines:
@@ -564,7 +560,6 @@ class build(_build):
         cmake_cmd = [
             cmake_path,
             "..",
-            "-DBoost_DEBUG=False",
         ] + cmake_extra + cmake_extra_arch
 
         if run_process(cmake_cmd):
